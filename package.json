@@ -12,7 +12,10 @@
     "react": "16.6.3",
     "react-native": "0.57.8",
     "react-native-actionsheet": "^2.4.2",
+    "react-native-chart-kit": "^1.2.1",
     "react-native-gesture-handler": "^1.0.12",
+    "react-native-highcharts": "^1.0.2",
+    "react-native-svg": "^9.0.0",
     "react-navigation": "^3.0.9"
   },
   "devDependencies": {

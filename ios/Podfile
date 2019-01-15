@@ -9,6 +9,8 @@ target 'rnBravo' do
 
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler/'
 
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
+
   target 'rnBravoTests' do
     inherit! :search_paths
     # Pods for testing
@@ -19,6 +21,9 @@ end
 
   # Flexbox Layout Manager Used By React Native
   pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga/Yoga.podspec'
+
+#React Native SVG
+pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
   # React Native
   pod 'React', path: '../node_modules/react-native', subspecs: [

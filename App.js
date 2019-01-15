@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, StatusBar} from 'react-native';
+import {Platform, StyleSheet, Text, View, StatusBar, SafeAreaView} from 'react-native';
 import Mapbox from '@mapbox/react-native-mapbox-gl';
 import HeaderBar from './components/HeaderBar';
 import SegmentBar from './components/SegmentBar';
@@ -90,88 +90,111 @@ class App extends Component {
     var isRoad = e.nativeEvent.payload.properties.isRoad;
     var overlay = this.state.selectedOverlay;
     this.setState({currentProperties: e.nativeEvent.payload.properties});
-    
-    if(overlay === 'travellers') {
-      if (!isPOE) {
-        ActionSheet.show(
-          {
-            options: travOptions,
-            cancelButtonIndex: 2,
-            title: name
-          },
-          buttonIndex => {
-            if(buttonIndex == 2) { 
-              return
-            } else {
-              this.props.navigation.navigate('Charts', {chosenOption: travOptions[buttonIndex], name: name});
+
+    switch (overlay) {
+      case 'travellers':
+        switch (isPOE) {
+          case false:
+          ActionSheet.show(
+            {
+              options: travOptions,
+              cancelButtonIndex: 2,
+              title: name
+            },
+            buttonIndex => {
+              if(buttonIndex == 2) { 
+                return
+              } else {
+                this.props.navigation.navigate('Charts', {chosenOption: travOptions[buttonIndex], name: name});
+              }
             }
-            
-          }
-        )
-      } else if (!isRoad) {
-        ActionSheet.show(
-          {
-            options: travOtherOptions,
-            cancelButtonIndex: 1,
-            title: name
-          },
-          buttonIndex => {
-            if(buttonIndex == 1) { 
-              return
-            } else {
-            this.props.navigation.navigate('Charts', {chosenOption: travOtherOptions[buttonIndex], name: name});
+          )
+            break;
+          case true:
+            switch (isRoad) {
+              case true:
+              ActionSheet.show(
+                {
+                  options: travOptions,
+                  cancelButtonIndex: 2,
+                  title: name
+                },
+                buttonIndex => {
+                  if(buttonIndex == 2) { 
+                    return
+                  } else {
+                  this.props.navigation.navigate('Charts', {chosenOption: travOptions[buttonIndex], name: name});
+                  }
+                }
+              )
+                break;
+              
+              case false:
+              ActionSheet.show(
+                {
+                  options: travOtherOptions,
+                  cancelButtonIndex: 1,
+                  title: name
+                },
+                buttonIndex => {
+                  if(buttonIndex == 1) { 
+                    return
+                  } else {
+                  this.props.navigation.navigate('Charts', {chosenOption: travOtherOptions[buttonIndex], name: name});
+                  }
+                }
+              )
+                break;
+              default:
+                break;
             }
-          }
-        )
-      } else {
-        ActionSheet.show(
-          {
-            options: travOptions,
-            cancelButtonIndex: 2,
-            title: name
-          },
-          buttonIndex => {
-            if(buttonIndex == 2) { 
-              return
-            } else {
-            this.props.navigation.navigate('Charts', {chosenOption: travOptions[buttonIndex], name: name});
+            break;
+        
+          default:
+            break;
+        }
+        break;
+      case 'commercial':
+        
+        switch (isPOE) {
+          case false:
+          ActionSheet.show(
+            {
+              options: commProvOptions,
+              cancelButtonIndex: 4,
+              title: name
+            },
+            buttonIndex => {
+              if(buttonIndex == 4) { 
+                return
+              } else {
+              this.props.navigation.navigate('Charts', {chosenOption: commProvOptions[buttonIndex], name: name});
+              }
             }
-          }
-        )
-      }
-    }
-    if(overlay === 'commercial') {
-      if(!isPOE) {
-        ActionSheet.show(
-          {
-            options: commProvOptions,
-            cancelButtonIndex: 4,
-            title: name
-          },
-          buttonIndex => {
-            if(buttonIndex == 4) { 
-              return
-            } else {
-            this.props.navigation.navigate('Charts', {chosenOption: commProvOptions[buttonIndex], name: name});
+          )
+            break;
+          case true:
+          ActionSheet.show(
+            {
+              options: commPOEOptions,
+              cancelButtonIndex: 1,
+              title: name
+            },
+            buttonIndex => {
+              if(buttonIndex == 1) { 
+                return
+              } else {
+              this.props.navigation.navigate('Charts', {chosenOption: commPOEOptions[buttonIndex], name: name});
+              }
             }
-          }
-        )
-      } else  {
-        ActionSheet.show(
-          {
-            options: commPOEOptions,
-            cancelButtonIndex: 1,
-            title: name
-          },
-          buttonIndex => {
-            if(buttonIndex == 1) { 
-              return
-            } else {
-            this.props.navigation.navigate('Charts', {chosenOption: commPOEOptions[buttonIndex], name: name});
-            }
-          }
-        )
-      }
+          )
+          default:
+            break;
+        }
+
+        break;
+      default:
+        break;
     }
   }
 
@@ -180,17 +203,19 @@ class App extends Component {
       <Root>
       <View style={styles.container}>
         
-        {/* <HeaderBar/> */}
+        
         <StatusBar
           barStyle="light-content"
           backgroundColor="#6a51ae"
         />
         
+        
         <Mapbox.MapView
             styleURL={Mapbox.StyleURL.Street}
             zoomLevel={3}
             centerCoordinate={[-124.9805,55.2290]}
-            style={styles.container}>
+            style={styles.container}
+            compassEnabled={false}>
 
             <Mapbox.ShapeSource id="marker-source-province" onPress = {(e) => this._handleMarkerPress(e)} shape={this.state.selectedOverlay === 'travellers' ? travGeoJsonProvince : commGeoJsonProvince}>
               <Mapbox.SymbolLayer id="bc-point" style={{ iconImage: bcMarker }} />

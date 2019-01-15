@@ -43,6 +43,8 @@ PODS:
     - React/RCTBlob
   - RNGestureHandler (1.0.12):
     - React
+  - RNSVG (9.0.0):
+    - React
   - yoga (0.57.8.React)
 
 DEPENDENCIES:
@@ -64,6 +66,7 @@ DEPENDENCIES:
   - React/RCTVibration (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler/`)
+  - RNSVG (from `../node_modules/react-native-svg`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga/Yoga.podspec`)
 
 EXTERNAL SOURCES:
@@ -73,6 +76,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@mapbox/react-native-mapbox-gl"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler/"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga/Yoga.podspec"
 
@@ -80,8 +85,9 @@ SPEC CHECKSUMS:
   React: 1fe0eb13d90b625d94c3b117c274dcfd2e760e11
   react-native-mapbox-gl: b42480060cdcc515dfa3d8e403fb4dd32466a1b9
   RNGestureHandler: 282af6ea58ed8483612365159c58a3ca5f55e7da
+  RNSVG: 4834be1d644eb77f0e3f6de851881b83758a3124
   yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
-PODFILE CHECKSUM: b810a9643395cb8733bc6e771b4d458d05cc31b4
+PODFILE CHECKSUM: 92f1a92ab4d1994fc69309585072bc8fb6987408
 
 COCOAPODS: 1.5.3
